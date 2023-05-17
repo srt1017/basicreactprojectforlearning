@@ -5,9 +5,11 @@ interface Props {
 
 const Button = ({ onClick, color = "primary" }: Props) => {
   return (
-    <button type="button" className={"btn btn-" + color} onClick={onClick}>
-      
-    </button>
+    <button
+      type="button"
+      className={"btn btn-" + color}
+      onClick={onClick}
+    ></button>
   );
 };
 

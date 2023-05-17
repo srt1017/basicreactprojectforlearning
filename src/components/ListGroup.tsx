@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { useState } from "react";
-import "./ListGroup.css"
+import "./ListGroup.css";
 
 interface Props {
   items: string[];
