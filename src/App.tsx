@@ -1,14 +1,36 @@
-import { useState } from "react";
-import ExpandableText from "./components/ExpandableText";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+interface User {
+  id: number;
+  name: string;
+  username: string;
+}
 
 function App() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/xusers")
+      .then((res) => setUsers(res.data))
+      .catch(err => setError(err.message));
+  }, []);
+
   return (
-    <div>
-      <ExpandableText maxChars={50}>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique illo libero, sequi necessitatibus aliquam adipisci, voluptate veritatis aspernatur minima aperiam ipsam doloribus at natus, accusamus totam maxime nulla corrupti nobis? Amet molestiae nam saepe enim in numquam officiis atque voluptate nulla quasi fugiat iste corrupti est accusamus incidunt reprehenderit itaque, porro possimus aperiam adipisci consequatur illo maxime tenetur! Distinctio sunt libero autem. Voluptatibus quos pariatur, doloribus qui fuga porro hic eligendi repellat labore nesciunt fugit a magni esse earum cumque alias. Provident cupiditate perferendis eligendi quisquam voluptate. Nulla, eligendi quisquam? Maiores, laboriosam similique. Illum, provident totam nulla perspiciatis nemo odio.
-      </ExpandableText>
-    </div>
+    <>
+    <p className="text-danger">{error}</p>
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>
+          {user.name}, {user.username}{" "}
+        </li>
+      ))}
+    </ul>
+    </>
   );
+  
 }
 
 export default App;
